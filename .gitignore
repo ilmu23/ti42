@@ -1,0 +1,8 @@
+*.a
+*.o
+*.log
+*.out*
+*test*
+.cache
+.clangd
+compile_commands.json
