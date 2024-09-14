@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 19:08:41 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/14 07:28:26 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:25:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@ typedef struct s_header	header_t;
 #define STRMAXLEN	1024
 #define OUTMAXWIDTH	56
 
-#define ABS_NUMBER	0xFFFFFFFF
-#define CAN_NUMBER	0xFFFFFFFE
+#define ABS_NUM16	0xFFFF
+#define CAN_NUM16	0xFFFE
+#define ABS_NUM32	0xFFFFFFFF
+#define CAN_NUM32	0xFFFFFFFE
 #define INVALID_STR	0xFFFF
+
+#define NUM16		0432
+#define NUM32		01036
 
 #define HEX_START	100
 
@@ -129,6 +134,7 @@ struct s_entry
 
 struct s_header
 {
+	uint16_t	numbits;
 	uint16_t	namelen;
 	uint16_t	boolmax;
 	uint16_t	nummax;
@@ -136,7 +142,8 @@ struct s_header
 	uint16_t	nfree;
 };
 
-static inline const uint32_t	_getnum(const char *val, const uint32_t *nums);
+static inline const uint16_t	_getnum16(const char *val, const uint16_t *nums);
+static inline const uint32_t	_getnum32(const char *val, const uint32_t *nums);
 static inline const char		*_getstr(const entry_t *entry, const char *val);
 static inline const char		*_escape(const char *str);
 static inline header_t			_getheader(const int32_t fd);
@@ -154,8 +161,12 @@ int	main(int argc, char **argv)
 	list_t		*bvals;
 	list_t		*nvals;
 	list_t		*svals;
+	char		fname[256];
 
-	fd = (argc > 1) ? open(argv[1], O_RDONLY) : -1;
+	if (argc == 1)
+		return (1);
+	snprintf(fname, 255, "/usr/share/terminfo/%c/%s%c", *argv[1], argv[1], '\0');
+	fd = open(fname, O_RDONLY);
 	if (fd == -1)
 		return (1);
 	header = _getheader(fd);
@@ -168,7 +179,7 @@ int	main(int argc, char **argv)
 	if ((header.namelen + header.boolmax) % 2 != 0  && read(fd, &i, 1) == -1)
 		return (1);
 	entry.numbers = malloc(header.nummax * sizeof(*entry.numbers));
-	if (!entry.numbers || read(fd, entry.numbers, header.nummax * 4) == -1)
+	if (!entry.numbers || read(fd, entry.numbers, header.nummax * ((header.numbits == NUM16) ? 2 : 4)) == -1)
 		return (1);
 	entry.offsets = malloc(header.strmax * sizeof(*entry.offsets));
 	if (!entry.offsets || read(fd, entry.offsets, header.strmax * 2) == -1)
@@ -184,10 +195,19 @@ int	main(int argc, char **argv)
 		if (entry.bools[i])
 			_listadd(&bvals, _listnew(bools[i]));
 	}
-	for (i = 0; i < header.nummax; i++)
+	if (header.numbits == NUM16)
 	{
-		if (entry.numbers[i] != ABS_NUMBER && entry.numbers[i] != CAN_NUMBER)
-			_listadd(&nvals, _listnew(numbers[i]));
+		for (i = 0; i < header.nummax; i++)
+			if (((uint16_t *)entry.numbers)[i] != ABS_NUM16 && ((uint16_t *)entry.numbers)[i] != CAN_NUM16)
+				_listadd(&nvals, _listnew(numbers[i]));
+	}
+	else
+	{
+		for (i = 0; i < header.nummax; i++)
+		{
+			if (entry.numbers[i] != ABS_NUM32 && entry.numbers[i] != CAN_NUM32)
+				_listadd(&nvals, _listnew(numbers[i]));
+		}
 	}
 	for (i = 0; i < header.strmax; i++)
 	{
@@ -203,7 +223,10 @@ int	main(int argc, char **argv)
 		printf("\t%s,\n", bvals->val);
 	for (; nvals; nvals = nvals->next)
 	{
-		val = _getnum(nvals->val, entry.numbers);
+		if (header.numbits == NUM16)
+			val = _getnum16(nvals->val, (uint16_t *)entry.numbers);
+		else
+			val = _getnum32(nvals->val, entry.numbers);
 		if (val > HEX_START)
 			printf("\t%s#%#x,\n", nvals->val, val);
 		else
@@ -215,7 +238,19 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-static inline const uint32_t	_getnum(const char *val, const uint32_t *nums)
+static inline const uint16_t	_getnum16(const char *val, const uint16_t *nums)
+{
+	size_t	i;
+
+	for (i = 0; i < NUMCOUNT; i++)
+		if (strcmp(val, numbers[i]) == 0)
+			break ;
+	if (i == NUMCOUNT)
+		exit(1);
+	return (nums[i]);
+}
+
+static inline const uint32_t	_getnum32(const char *val, const uint32_t *nums)
 {
 	size_t	i;
 
@@ -281,9 +316,7 @@ static inline header_t	_getheader(const int32_t fd)
 	header_t	out;
 	uint16_t	*ptr;
 	
-	ptr = &out.namelen;
-	if (read(fd, ptr, sizeof(*ptr)) == -1)
-		exit(1);
+	ptr = &out.numbits;
 	for (; ptr <= &out.nfree; ptr++)
 	{
 		if (read(fd, ptr, sizeof(*ptr)) == -1)
