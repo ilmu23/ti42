@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ti42_defines.h                                     :+:      :+:    :+:   */
+/*   getstr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 21:43:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 00:35:53 by ivalimak         ###   ########.fr       */
+/*   Created: 2024/09/15 01:44:06 by ivalimak          #+#    #+#             */
+/*   Updated: 2024/09/15 01:46:00 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-#ifndef TI42_DEFINES_H
-# define TI42_DEFINES_H
+#include "_internal/ti42_internal.h"
 
-// capability counts
-# define BOOLCOUNT		44
-# define NUMCOUNT		39
-# define STRCOUNT		424
+const char	*ft_ti_getstr(const char *code)
+{
+	const char	*out;
+	size_t		i;
 
-// number size identifiers
-# define NUM16B			0432
-# define NUM32B			01036
-
-// special capability values
-# define ABS_NUMBER		0xFFFFFFFF
-# define CAN_NUMBER		0xFFFFFFFE
-# define INVALID_STR	0xFFFF
-
-#endif
+	out = ft_ti_hmap_get(strcaps, code);
+	if (out)
+		return (out);
+	for (i = 0; i < STRCOUNT; i++)
+		if (strcmp(strcodes[i], code) == 0)
+			break ;
+	return (i < STRCOUNT) ? ABS_STR : NOT_STR;
+}

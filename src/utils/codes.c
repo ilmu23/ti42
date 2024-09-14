@@ -6,32 +6,32 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:50:11 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/14 21:57:35 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:51:41 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_internal/ti42_defines.h"
 
-static const char	*bools[BOOLCOUNT] = {"bw", "am", "xsb", "xhp", "xenl", "eo",
-	"gn", "hc", "km", "hs", "in", "da", "db", "mir", "msgr", "os", "eslok", "xt",
-	"hz", "ul", "xon", "nxon", "mc5i", "chts", "nrrmc", "npc", "ndscr", "ccc",
-	"bce", "hls", "xhpa", "crxm", "daisy", "xvpa", "sam", "cpix", "lpix", "OTbs",
-	"OTns", "OTnc", "OTMT", "OTNL", "OTpt", "OTXR"};
+const char	*boolcodes[BOOLCOUNT] __attribute__((unused)) = {"bw", "am",
+	"xsb", "xhp", "xenl", "eo", "gn", "hc", "km", "hs", "in", "da", "db", "mir",
+	"msgr", "os", "eslok", "xt", "hz", "ul", "xon", "nxon", "mc5i", "chts", "nrrmc",
+	"npc", "ndscr", "ccc", "bce", "hls", "xhpa", "crxm", "daisy", "xvpa", "sam",
+	"cpix", "lpix", "OTbs", "OTns", "OTnc", "OTMT", "OTNL", "OTpt", "OTXR"};
 
-static const char	*numbers[NUMCOUNT] = {"cols", "it", "lines", "lm", "xmc", "pb",
-	"vt", "wsl", "nlab", "lh", "lw", "ma", "wnum", "colors", "pairs", "ncv",
-	"bufsz", "spinv", "spinh", "maddr", "mjump", "mcs", "mls", "npins", "orc",
-	"orl", "orhi", "orvi", "cps", "widcs", "btns", "bitwin", "bitype", "OTug",
-	"OTdC", "OTdN", "OTdB", "OTdT", "OTkn"};
+const char	*numcodes[NUMCOUNT] __attribute__((unused)) = {"cols", "it",
+	"lines", "lm", "xmc", "pb", "vt", "wsl", "nlab", "lh", "lw", "ma", "wnum",
+	"colors", "pairs", "ncv", "bufsz", "spinv", "spinh", "maddr", "mjump", "mcs",
+	"mls", "npins", "orc", "orl", "orhi", "orvi", "cps", "widcs", "btns", "bitwin",
+	"bitype", "OTug", "OTdC", "OTdN", "OTdB", "OTdT", "OTkn"};
 
-static const char	*strings[STRCOUNT] = {"cbt", "bel", "cr", "csr", "tbc", "clear",
-	"el", "ed", "hpa", "cmdch", "cup", "cud1", "home", "civis", "cub1", "mrcup",
-	"cnorm", "cuf1", "ll", "cuu1", "cvvis", "dch1", "dl1", "dsl", "hd", "smacs",
-	"blink", "bold", "smcup", "smdc", "dim", "smir", "invis", "prot", "rev",
-	"smso", "smul", "ech", "rmacs", "sgr0", "rmcup", "rmdc", "rmir", "rmso",
-	"rmul", "flash", "ff", "fsl", "is1", "is2", "is3", "if", "ich1", "il1", "ip",
-	"kbs", "ktbc", "kclr", "kctab", "kdch1", "kdl1", "kcud1", "krmir", "kel",
-	"ked", "kf0", "kf1", "kf10", "kf2", "kf3", "kf4", "kf5", "kf6", "kf7", "kf8",
+const char	*strcodes[STRCOUNT] __attribute__((unused)) = {"cbt", "bel",
+	"cr", "csr", "tbc", "clear", "el", "ed", "hpa", "cmdch", "cup", "cud1", "home",
+	"civis", "cub1", "mrcup", "cnorm", "cuf1", "ll", "cuu1", "cvvis", "dch1",
+	"dl1", "dsl", "hd", "smacs", "blink", "bold", "smcup", "smdc", "dim", "smir",
+	"invis", "prot", "rev", "smso", "smul", "ech", "rmacs", "sgr0", "rmcup", "rmdc",
+	"rmir", "rmso", "rmul", "flash", "ff", "fsl", "is1", "is2", "is3", "if", "ich1",
+	"il1", "ip", "kbs", "ktbc", "kclr", "kctab", "kdch1", "kdl1", "kcud1", "krmir",
+	"kel", "ked", "kf0", "kf1", "kf10", "kf2", "kf3", "kf4", "kf5", "kf6", "kf7", "kf8",
 	"kf9", "khome", "kich1", "kil1", "kcub1", "kll", "knp", "kpp", "kcuf1", "kind",
 	"kri", "khts", "kcuu1", "rmkx", "smkx", "lf0", "lf1", "lf10", "lf2", "lf3",
 	"lf4", "lf5", "lf6", "lf7", "lf8", "lf9", "rmm", "smm", "nel", "pad", "dch",

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:11:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/14 23:36:46 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:33:37 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,10 @@ struct s_entry
 extern const char	*boolcodes[BOOLCOUNT];
 extern const char	*numcodes[NUMCOUNT];
 extern const char	*strcodes[STRCOUNT];
+
+// load.c
+extern hmap_t	*boolcaps;
+extern hmap_t	*numcaps;
+extern hmap_t	*strcaps;
 
 #endif

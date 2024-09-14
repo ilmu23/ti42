@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:58:45 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/14 22:06:43 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:55:23 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,15 @@ void	ft_ti_list_add(list_t **list, list_t *node)
 		(*list)->prev = node;
 	node->next = *list;
 	*list = node;
+}
+
+void	ft_ti_list_del(list_t **list, const list_t *node)
+{
+	if (node->prev)
+		node->prev->next = node->next;
+	if (node->next)
+		node->next->prev = node->prev;
+	if (node == *list)
+		*list = node->next;
+	ft_ti_flist_free(node);
 }

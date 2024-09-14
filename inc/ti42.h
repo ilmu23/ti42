@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:37:13 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/14 21:42:56 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:13:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@
 /** @brief Returns the value of the capability referred to by code
  *
  * @param code Capability code to look for
- * @returns @c <b>const int32_t</b> 1 if capability is present,
+ * @returns @c <b>int32_t</b> 1 if capability is present,
  * 0 if it is absent or cancelled,
  * NOT_BOOL if code was not a valid boolean capability
  */
-const int32_t	ft_ti_getflag(const char *code);
+int32_t	ft_ti_getflag(const char *code);
 
 // getnum.c
 /** @brief Returns the value of the capability referred to by code
  *
  * @param code Capability code to look for
- * @returns @c <b>const int32_t</b> Value of the capability if it is present,
+ * @returns @c <b>int32_t</b> Value of the capability if it is present,
  * ABS_NUM if it is absent or cancelled,
  * NOT_NUM if code was not a valid numeric capability
  */
-const int32_t	ft_ti_getnum(const char *code);
+int32_t	ft_ti_getnum(const char *code);
 
 // getstr.c
 /** @brief Returns the value of the capability referred to by code

@@ -6,36 +6,37 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 22:08:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/14 23:28:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/15 02:46:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_internal/ti42_internal.h"
 
-#define _HMAP_DEF_SIZE 100
+#define _HMAP_DEF_SIZE 1024
 #define _HMAP_REMOVED &__sentinel
 
 #define _SALT 2903ULL
 
+#define next(x, y) ((x + y < map->size) ? x + y  : y)
+
 #define swap(x, y) x ^= y, y ^= x, x ^= y
 
-#define isvalid(x) x && x != _HMAP_REMOVED
+#define isvalid(x) (x && x != _HMAP_REMOVED)
 
 #define __freepair(x) ft_ti_flist_free(x->key), ft_ti_flist_free(x->val), ft_ti_flist_free(x)
 
 static const pair_t	__sentinel;
 
-static inline const pair_t	*_newpair(const char *key, const char *val);
+static inline const pair_t	*_newpair(const char *key, const void *val);
 static inline uint64_t		_hash(const char *s);
 static inline uint64_t		_nextprime(uint64_t	n);
 static inline uint8_t		_isprime(const uint64_t n);
 static inline uint8_t		_replace(hmap_t *map, const pair_t *pair, const size_t i);
 static inline hmap_t		*_newmap(const size_t bsize);
-static inline hmap_t		*_grow(hmap_t *map);
 static inline double		_floor(const double n);
 static inline double		_sqrt(const double n);
 
-const char	*ft_ti_hmap_get(const hmap_t *map, const char *key)
+const void	*ft_ti_hmap_get(const hmap_t *map, const char *key)
 {
 	const pair_t	*cur;
 	size_t			i;
@@ -44,27 +45,27 @@ const char	*ft_ti_hmap_get(const hmap_t *map, const char *key)
 	if (!map)
 		return 0;
 	i = _hash(key) % map->size;
-	for (j = 0, cur = map->items[i]; isvalid(cur); cur = map->items[i + ++j])
+	for (j = 0, cur = map->items[i]; isvalid(cur) && next(i, j) < i; cur = map->items[next(i, ++j)])
 		if (strcmp(cur->key, key) == 0)
 			break ;
 	return (isvalid(cur)) ? cur->val : NULL;
 }
 
-uint8_t		ft_ti_hmap_add(hmap_t *map, const char *key, const char *val)
+uint8_t		ft_ti_hmap_add(hmap_t *map, const char *key, const void *val)
 {
 	const pair_t	*pair;
 	const pair_t	*cur;
 	size_t			i;
 	size_t			j;
 
-	if (!map || ((map->count * 100) / map->size > 70 && !_grow(map)))
+	if (!map)
 		return 0;
 	pair = _newpair(key, val);
 	if (!pair)
 		return 0;
 	i = _hash(key) % map->size;
-	for (j = 0, cur = map->items[i]; isvalid(cur); cur = map->items[i + ++j])
-		if (_replace(map, pair, i))
+	for (j = 0, cur = map->items[i]; isvalid(cur) && next(i, j) < i; cur = map->items[next(i, ++j)])
+		if (_replace(map, pair, next(i, j)))
 			return 1;
 	map->items[i + j] = pair;
 	map->count++;
@@ -80,6 +81,8 @@ void	ft_ti_hmap_del(const hmap_t *map)
 {
 	size_t	i;
 
+	if (!map)
+		return ;
 	for (i = 0; i < map->size; i++)
 		if (isvalid(map->items[i]))
 			__freepair(map->items[i]);
@@ -87,7 +90,7 @@ void	ft_ti_hmap_del(const hmap_t *map)
 	ft_ti_flist_free(map);
 }
 
-static inline const pair_t	*_newpair(const char *key, const char *val)
+static inline const pair_t	*_newpair(const char *key, const void *val)
 {
 	pair_t	*out;
 
@@ -99,12 +102,8 @@ static inline const pair_t	*_newpair(const char *key, const char *val)
 	out->key = ft_ti_strdup(key);
 	if (!out->key)
 		goto ferr1;
-	out->val = ft_ti_strdup(val);
-	if (!out->val)
-		goto ferr2;
+	out->val = val;
 	return out;
-	ferr2:
-	ft_ti_flist_free(out->key);
 	ferr1:
 	ft_ti_flist_free(out);
 	err:
@@ -173,32 +172,6 @@ static inline hmap_t	*_newmap(const size_t bsize)
 	return out;
 	ferr:
 	ft_ti_flist_free(out);
-	err:
-	return NULL;
-}
-
-static inline hmap_t	*_grow(hmap_t *map)
-{
-	const pair_t	**items;
-	hmap_t			*tmp;
-	size_t			i;
-
-	tmp = _newmap(map->bsize * 2);
-	if (!tmp)
-		goto err;
-	for (i = 0; i < map->size; i++)
-		if (map->items[i] && map->items[i] != _HMAP_REMOVED)
-			goto ferr;
-	map->bsize = tmp->bsize;
-	map->count = tmp->count;
-	swap(map->size, tmp->size);
-	items = map->items;
-	map->items = tmp->items;
-	tmp->items = items;
-	ft_ti_hmap_del(tmp);
-	return map;
-	ferr:
-	ft_ti_hmap_del(tmp);
 	err:
 	return NULL;
 }
