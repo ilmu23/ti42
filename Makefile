@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 11:30:59 by ivalimak          #+#    #+#              #
-#    Updated: 2024/09/15 01:51:59 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/09/15 20:06:53 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC				=	cc
 cflags.common	=	-Wall -Wextra -Werror
 cflags.debug	=	-g
 cflags.debugm	=	$(cflags.debug) -D DEBUG_MSG=1
-cflags.asan		=	$(cflags.debug) -fsanitize=address
+cflags.fsan		=	$(cflags.debug) -fsanitize=address,undefined
 cflags.normal	=	-Ofast
 cflags.extra	=	
 CFLAGS			=	$(cflags.common) $(cflags.$(BUILD)) $(cflags.extra)
@@ -42,6 +42,7 @@ FILES	=	getflag.c \
 			getnum.c \
 			getstr.c \
 			load.c \
+			tgoto.c \
 			$(addprefix $(UTILSDIR)/, $(UTILSFILES))
 
 SRCS	=	$(addprefix $(SRCDIR)/, $(FILES))

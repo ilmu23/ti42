@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:37:13 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 01:13:58 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/15 19:57:54 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ const char		*ft_ti_getstr(const char *code);
 // tgoto.c
 /** @brief Returns an escape sequence for moving the cursor to the desired location
  *
- * @param s The move cursor sequence for the current terminal
+ * @param seq The move cursor sequence for the current terminal
  * @param row Row to move the cursor to
  * @param col Column to move the cursor to
  * @returns @c <b>const char *</b> Escape sequence for moving to the desired location
  */
-const char		*ft_ti_tgoto(const char *s, const int32_t row, const int32_t col);
+const char		*ft_ti_tgoto(const char *seq, const int32_t row, const int32_t col);
 
 // tparm.c
 /** @brief Instantiates the string s with the parameters given
