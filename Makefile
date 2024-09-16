@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 11:30:59 by ivalimak          #+#    #+#              #
-#    Updated: 2024/09/16 05:19:52 by ivalimak         ###   ########.fr        #
+#    Updated: 2024/09/17 00:58:44 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ FILES	=	getflag.c \
 			getstr.c \
 			load.c \
 			tgoto.c \
+			tparm.c \
 			tputs.c \
 			$(addprefix $(UTILSDIR)/, $(UTILSFILES))
 

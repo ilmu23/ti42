@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:37:13 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 06:58:14 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 22:12:50 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ const char		*ft_ti_tgoto(const char *seq, const int32_t row, const int32_t col);
 // tparm.c
 /** @brief Instantiates the string s with the parameters given
  *
- * @param s String to apply parameters on
+ * @param seq String to apply parameters on
  * @param ... Parameters to apply
- * @returns @c <b>const char *</b> s with the parameters applied
+ * @returns @c <b>const char *</b> seq with the parameters applied
  */
-const char		*ft_ti_tparm(const char *s, ...);
+const char		*ft_ti_tparm(const char *seq, ...);
 
 // tputs.c
 /** @brief Outputs the string s, executing any delays found in it
