@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 19:56:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 22:12:12 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 22:08:18 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ const char	*ft_ti_tgoto(const char *seq, const int32_t row, const int32_t col)
 					push(iparam(seq[_ISEQ]));
 					break ;
 				case 'd':
-					n = ft_ti_itoa(pop(int32_t));
+					n = ft_ti_itoa(pop(int32_t) + ((flags & _FLAG_I) ? 1 : 0));
 					if (!n)
 						return NULL;
 					for (len = strlen(n), _INUM = 0; _INUM < len && _IOUT < _BUFSIZE; _IOUT++, _INUM++)
