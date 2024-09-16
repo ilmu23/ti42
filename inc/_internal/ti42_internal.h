@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:09:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 21:27:48 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 04:51:34 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 # include "ti42.h"
 # include "_internal/ti42_data.h"
 # include "_internal/ti42_defines.h"
+# include <time.h>
 # include <ctype.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <termios.h>
 
 /**  UTILS  **/
 

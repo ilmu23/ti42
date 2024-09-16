@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:34:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 02:07:57 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 03:49:44 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 #define NUMLIST		caps[1]
 #define STRLIST		caps[2]
 
+#define TERM		struct termios
+
 hmap_t	*boolcaps = NULL;
 hmap_t	*numcaps = NULL;
 hmap_t	*strcaps = NULL;
@@ -49,6 +51,7 @@ uint8_t	ft_ti_loadinfo(const char *term)
 	const entry_t		*entry;
 	list_t				*caps[3] = {NULL, NULL, NULL};
 	size_t				i;
+	TERM				t;
 
 	if (cur && strcmp(cur, term) == 0)
 		return 1;
@@ -83,6 +86,8 @@ uint8_t	ft_ti_loadinfo(const char *term)
 		ft_ti_hmap_add(numcaps, NUMLIST->val, getnum(NUMLIST->val));
 	for (; STRLIST; ft_ti_list_del(&STRLIST, STRLIST))
 		ft_ti_hmap_add(strcaps, STRLIST->val, _getstr(STRLIST->val, entry));
+	tcgetattr(0, &t);
+	ospeed = cfgetospeed(&t);
 	return 1;
 }
 

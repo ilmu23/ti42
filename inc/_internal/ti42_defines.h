@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:43:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 00:35:53 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 04:01:46 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # define BOOLCOUNT		44
 # define NUMCOUNT		39
 # define STRCOUNT		424
+
+// ospeed / baud-rate pair count
+# define SPEEDCOUNT		31
 
 // number size identifiers
 # define NUM16B			0432

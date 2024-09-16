@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:11:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 01:33:37 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 04:01:54 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define TI42_DATA_H
 # include "ti42.h"
 # include "_internal/ti42_defines.h"
+# include <termios.h>
 
 typedef struct s_list	list_t;
 typedef struct s_hmap	hmap_t;
@@ -71,13 +72,17 @@ struct s_entry
 };
 
 // codes.c
-extern const char	*boolcodes[BOOLCOUNT];
-extern const char	*numcodes[NUMCOUNT];
-extern const char	*strcodes[STRCOUNT];
+extern const speed_t	speeds[SPEEDCOUNT * 2];
+extern const char		*boolcodes[BOOLCOUNT];
+extern const char		*numcodes[NUMCOUNT];
+extern const char		*strcodes[STRCOUNT];
 
 // load.c
 extern hmap_t	*boolcaps;
 extern hmap_t	*numcaps;
 extern hmap_t	*strcaps;
+
+// tputs.c
+extern speed_t	ospeed;
 
 #endif
