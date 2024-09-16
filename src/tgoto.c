@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 19:56:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 22:08:18 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 22:14:11 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ const char	*ft_ti_tgoto(const char *seq, const int32_t row, const int32_t col)
 	const char	*n;
 	char		out[_BUFSIZE];
 
-	memset(out, 0, _BUFSIZE);
 	for (_INIT_I, flags = 0; seq[_ISEQ] && _IOUT < _BUFSIZE; _ISEQ++)
 	{
 		if (seq[_ISEQ] == '%')
