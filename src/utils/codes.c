@@ -6,32 +6,32 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:50:11 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 04:07:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 07:02:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_internal/ti42_internal.h"
 
-const speed_t	speeds[SPEEDCOUNT * 2] __attribute__((unused)) = {0, 1, 2, 3, 4,
+const speed_t	speeds[SPEEDCOUNT * 2] __UNUSED = {0, 1, 2, 3, 4,
 	5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 4097, 4098, 4099, 4100, 4101, 4102,
 	4103, 4104, 4105, 4106, 4107, 4108, 4109, 4110, 4111, 0, 50, 75, 110, 134, 150,
 	200, 300, 600, 1200, 1800, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400,
 	460800, 500000, 576000, 921600, 1000000, 1152000, 1500000, 2000000, 2500000,
 	3000000, 3500000, 4000000};
 
-const char	*boolcodes[BOOLCOUNT] __attribute__((unused)) = {"bw", "am",
+const char	*boolcodes[BOOLCOUNT] __UNUSED = {"bw", "am",
 	"xsb", "xhp", "xenl", "eo", "gn", "hc", "km", "hs", "in", "da", "db", "mir",
 	"msgr", "os", "eslok", "xt", "hz", "ul", "xon", "nxon", "mc5i", "chts", "nrrmc",
 	"npc", "ndscr", "ccc", "bce", "hls", "xhpa", "crxm", "daisy", "xvpa", "sam",
 	"cpix", "lpix", "OTbs", "OTns", "OTnc", "OTMT", "OTNL", "OTpt", "OTXR"};
 
-const char	*numcodes[NUMCOUNT] __attribute__((unused)) = {"cols", "it",
+const char	*numcodes[NUMCOUNT] __UNUSED = {"cols", "it",
 	"lines", "lm", "xmc", "pb", "vt", "wsl", "nlab", "lh", "lw", "ma", "wnum",
 	"colors", "pairs", "ncv", "bufsz", "spinv", "spinh", "maddr", "mjump", "mcs",
 	"mls", "npins", "orc", "orl", "orhi", "orvi", "cps", "widcs", "btns", "bitwin",
 	"bitype", "OTug", "OTdC", "OTdN", "OTdB", "OTdT", "OTkn"};
 
-const char	*strcodes[STRCOUNT] __attribute__((unused)) = {"cbt", "bel",
+const char	*strcodes[STRCOUNT] __UNUSED = {"cbt", "bel",
 	"cr", "csr", "tbc", "clear", "el", "ed", "hpa", "cmdch", "cup", "cud1", "home",
 	"civis", "cub1", "mrcup", "cnorm", "cuf1", "ll", "cuu1", "cvvis", "dch1",
 	"dl1", "dsl", "hd", "smacs", "blink", "bold", "smcup", "smdc", "dim", "smir",

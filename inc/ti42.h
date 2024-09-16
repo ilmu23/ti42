@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:37:13 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 19:57:54 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 06:58:14 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ const char		*ft_ti_tparm(const char *s, ...);
  * @param putc putchar-like function for outputting the characters
  * @retutrns @c <b>ssize_t</b> amount of characters output, -1 if an error occurred
  */
-ssize_t			ft_ti_tputs(const char *s, const size_t affln, ssize_t (*putc)(int32_t));
+ssize_t			ft_ti_tputs(const char *s, const size_t affln, ssize_t (*putc)(const int8_t));
 
 // load.c
 /** @brief Loads the terminal capabilities of term

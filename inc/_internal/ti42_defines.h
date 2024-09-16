@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:43:53 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 04:01:46 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 07:01:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,8 @@
 # define ABS_NUMBER		0xFFFFFFFF
 # define CAN_NUMBER		0xFFFFFFFE
 # define INVALID_STR	0xFFFF
+
+// unused variable
+# define __UNUSED __attribute__((unused))
 
 #endif

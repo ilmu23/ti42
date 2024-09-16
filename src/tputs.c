@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 03:25:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 06:38:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/16 07:02:16 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static const char		*pc = NULL;
 speed_t					ospeed = 0;
 
 static inline int64_t	_brate(const speed_t speed);
-static inline uint8_t	_sleep(const uint64_t ms, __attribute__((unused)) ssize_t (*putc)(int32_t));
-static inline uint8_t	_pad(const uint64_t ms, ssize_t (*putc)(int32_t));
+static inline uint8_t	_sleep(const uint64_t ms, ssize_t (*putc)(const int8_t));
+static inline uint8_t	_pad(const uint64_t ms, ssize_t (*putc)(const int8_t));
 
-ssize_t	ft_ti_tputs(const char *s, const size_t affln, ssize_t (*putc)(int32_t))
+ssize_t	ft_ti_tputs(const char *s, const size_t affln, __UNUSED ssize_t (*putc)(const int8_t))
 {
 	uint8_t		delay;
-	uint8_t		(*delayfn)(const uint64_t, ssize_t (*)(int32_t));
+	uint8_t		(*delayfn)(const uint64_t, ssize_t (*)(const int8_t));
 	uint64_t	delayms;
 	ssize_t		bout;
 	ssize_t		rv;
@@ -110,7 +110,7 @@ static inline int64_t	_brate(const speed_t speed)
 	return -1;
 }
 
-static inline uint8_t	_sleep(const uint64_t ms, ssize_t __attribute__((unused)) (*putc)(int32_t))
+static inline uint8_t	_sleep(const uint64_t ms, __UNUSED ssize_t (*putc)(const int8_t))
 {
 	struct timespec	total;
 	struct timespec	remaining;
@@ -121,7 +121,7 @@ static inline uint8_t	_sleep(const uint64_t ms, ssize_t __attribute__((unused)) 
 	return (!errno || errno == EINTR) ? 1 : 0;
 }
 
-static inline uint8_t	_pad(const uint64_t ms, ssize_t (*putc)(int32_t))
+static inline uint8_t	_pad(const uint64_t ms, ssize_t (*putc)(const int8_t))
 {
 	uint64_t	ncount;
 	ssize_t		bout;
