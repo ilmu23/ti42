@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 22:08:42 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 02:46:22 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:04:22 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,11 @@ static inline uint64_t	_hash(const char *s)
 	size_t		i;
 
 	if (!s)
-		return (0);
+		return 0;
 	slen = strlen(s);
 	for (i = 0, out = 0; i < slen; i++)
 		out += (_SALT * (slen - i + 1 * _SALT)) * s[i];
-	return (out);
+	return out;
 }
 
 static inline uint64_t	_nextprime(uint64_t	n)

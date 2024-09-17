@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:22:11 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 02:02:04 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:05:11 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	*ft_ti_alloc(const size_t n)
 		goto efree;
 	ft_ti_flist_add(node);
 	memset((void *)node->blk, 0, n);
-	return ((void *)node->blk);
+	return (void *)node->blk;
 	efree:
 	free(node);
 	eret:
-	return (NULL);
+	return NULL;
 }
 
 static inline void	___exit(void)

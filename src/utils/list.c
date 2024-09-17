@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:58:45 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 01:55:23 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:03:29 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ list_t	*ft_ti_list_new(const char *val)
 
 	out = (val) ? ft_ti_alloc(sizeof(*out)) : NULL;
 	if (!out)
-		return (NULL);
+		return NULL;
 	*out = (list_t){.val = val, .next = NULL, .prev = NULL};
-	return (out);
+	return out;
 }
 
 void	ft_ti_list_add(list_t **list, list_t *node)

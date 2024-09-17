@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 01:44:06 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 01:46:00 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:05:25 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ const char	*ft_ti_getstr(const char *code)
 
 	out = ft_ti_hmap_get(strcaps, code);
 	if (out)
-		return (out);
+		return out;
 	for (i = 0; i < STRCOUNT; i++)
 		if (strcmp(strcodes[i], code) == 0)
 			break ;
