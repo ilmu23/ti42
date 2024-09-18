@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:09:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 22:10:27 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:10:46 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void		ft_ti_list_del(list_t **list, const list_t *node);
 
 // str.c
 const char	*ft_ti_itoa(int64_t n);
+const char	*ft_ti_strjoin(const char *s1, const char *s2);
 char		*ft_ti_strdup(const char *s);
 
 /**  UTILS  **/

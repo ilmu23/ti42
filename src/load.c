@@ -6,31 +6,33 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:34:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 03:49:44 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:43:08 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "_internal/ti42_internal.h"
 
-#define STRBUF	1024
+#define STRBUF				1024
 
-#define MASK16	0xFFFF
-#define MASK32	0xFFFFFFFF
+#define MASK16				0xFFFF
+#define MASK32				0xFFFFFFFF
 
-#define __free(x) ft_ti_flist_free(x), x = NULL
-#define __freeentry(x) __free(x.term_names), __free(x.bools), \
-		__free(x.numbers), __free(x.offsets), __free(x.str_table)
+#define __free(x)			(ft_ti_flist_free(x), x = NULL)
+#define __freeentry(x)		(__free(x.term_names), __free(x.bools), \
+		__free(x.numbers), __free(x.offsets), __free(x.str_table))
 
-#define validnum(x, mask) x != (ABS_NUMBER & mask) && x != (CAN_NUMBER & mask)
-#define validstr(x) x != INVALID_STR
+#define createpath			(snprintf(path, STRBUF, "%s/%c/%s", dir, *term, term))
 
-#define getnum(x) (entry->header.numbits == NUM16B) ? _get16(x, (uint16_t *)entry->numbers) : _get32(x, entry->numbers)
+#define validnum(x, mask)	(x != (ABS_NUMBER & mask) && x != (CAN_NUMBER & mask))
+#define validstr(x)			(x != INVALID_STR)
 
-#define BOOLLIST	caps[0]
-#define NUMLIST		caps[1]
-#define STRLIST		caps[2]
+#define getnum(x)			((entry->header.numbits == NUM16B) ? _get16(x, (uint16_t *)entry->numbers) : _get32(x, entry->numbers))
 
-#define TERM		struct termios
+#define BOOLLIST			(caps[0])
+#define NUMLIST				(caps[1])
+#define STRLIST				(caps[2])
+
+#define TERM				struct termios
 
 hmap_t	*boolcaps = NULL;
 hmap_t	*numcaps = NULL;
@@ -41,6 +43,7 @@ static inline const int32_t	*_true(void);
 static inline const int32_t	*_get32(const char *val, const uint32_t *nums);
 static inline const int32_t	*_get16(const char *val, const uint16_t *nums);
 static inline const char	*_getstr(const char *val, const entry_t *entry);
+static inline const char	**_getdirs(char *dirs);
 static inline int32_t		_open(const char *term);
 static inline uint8_t		_alloc(entry_t *entry);
 static inline uint8_t		_read(const int32_t fd, entry_t *entry);
@@ -56,6 +59,8 @@ uint8_t	ft_ti_loadinfo(const char *term)
 	if (cur && strcmp(cur, term) == 0)
 		return 1;
 	entry = _getentry(_open(term));
+	if (!entry)
+		return 0;
 	for (i = 0; i < entry->header.boolmax; i++)
 		if (entry->bools[i])
 			ft_ti_list_add(&BOOLLIST, ft_ti_list_new(boolcodes[i]));
@@ -128,12 +133,32 @@ static inline const int32_t	*_true(void)
 
 static inline int32_t	_open(const char *term)
 {
-	ssize_t	rv;
-	char	path[STRBUF + 1];
+	size_t		i;
+	ssize_t		rv;
+	const char	*dir;
+	const char	**dirs;
+	char		path[STRBUF + 1];
 
 	if (!term)
 		return -1;
-	rv = snprintf(path, STRBUF, "/usr/share/terminfo/%c/%s", *term, term);
+	dir = getenv("TERMINFO");
+	if (dir)
+		rv = snprintf(path, STRBUF, "%s/%s", dir, term);
+	else if (access(ft_ti_strjoin(getenv("HOME"), "/.terminfo"), F_OK) == 0)
+		rv = snprintf(path, STRBUF, "%s/.terminfo/%c/%s", getenv("HOME"), *term, term);
+	else
+	{
+		if (getenv("TERMINFO_DIRS"))
+			dirs = _getdirs(ft_ti_strdup(getenv("TERMINFO_DIRS")));
+		else
+			dirs = tidirs;
+		if (!dirs)
+			return -1;
+		for (i = 0, dir = dirs[i], rv = createpath; rv >= 0 && dir && access(path, R_OK); dir = dirs[++i])
+			rv = createpath;
+		ft_ti_flist_free(*dirs);
+		ft_ti_flist_free(dirs);
+	}
 	return (rv >= 0 && rv <= STRBUF) ? open(path, O_RDONLY) : -1;
 }
 
@@ -173,6 +198,35 @@ static inline const char	*_getstr(const char *val, const entry_t *entry)
 		if (strcmp(val, strcodes[i]) == 0)
 			break ;
 	return (i < STRCOUNT) ? ft_ti_strdup(entry->str_table + entry->offsets[i]) : NULL;
+}
+
+static inline const char	**_getdirs(char *dirs)
+{
+	char	**out;
+	size_t		dircount;
+	size_t		i;
+
+	if (!dirs)
+		goto err;
+	for (i = 0, dircount = 1; dirs[i]; i++)
+		dircount += (dirs[i] == ':') ? 1 : 0;
+	out = ft_ti_alloc((dircount + 1) * sizeof(*out));
+	if (!out)
+		goto ferr;
+	for (i = 0, out[i] = dirs; *dirs && i < dircount; dirs++)
+	{
+		if (*dirs == ':')
+		{
+			out[++i] = dirs + 1;
+			*dirs = '\0';
+		}
+	}
+	out[i] = NULL;
+	return (const char **)out;
+	ferr:
+	ft_ti_flist_free(dirs);
+	err:
+	return NULL;
 }
 
 static inline uint8_t	_alloc(entry_t *entry)

@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:11:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 04:01:54 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:09:51 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ struct s_entry
 
 // codes.c
 extern const speed_t	speeds[SPEEDCOUNT * 2];
+extern const char		*tidirs[4];
 extern const char		*boolcodes[BOOLCOUNT];
 extern const char		*numcodes[NUMCOUNT];
 extern const char		*strcodes[STRCOUNT];

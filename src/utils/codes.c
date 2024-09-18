@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:50:11 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 07:02:58 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:02:32 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ const speed_t	speeds[SPEEDCOUNT * 2] __UNUSED = {0, 1, 2, 3, 4,
 	200, 300, 600, 1200, 1800, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400,
 	460800, 500000, 576000, 921600, 1000000, 1152000, 1500000, 2000000, 2500000,
 	3000000, 3500000, 4000000};
+
+const char	*tidirs[4] __UNUSED = {"/etc/terminfo", "/lib/terminfo", "/usr/share/terminfo", NULL};
 
 const char	*boolcodes[BOOLCOUNT] __UNUSED = {"bw", "am",
 	"xsb", "xhp", "xenl", "eo", "gn", "hc", "km", "hs", "in", "da", "db", "mir",

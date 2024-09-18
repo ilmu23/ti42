@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:29:21 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/15 21:36:24 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/09/18 13:28:15 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,28 @@ const char	*ft_ti_itoa(int64_t n)
 	if (neg)
 		out[i] = '-';
 	return out;
+}
+
+const char	*ft_ti_strjoin(const char *s1, const char *s2)
+{
+	size_t	l1;
+	size_t	l2;
+	char	*out;
+
+	if (!s1 || !s2)
+		goto err;
+	l1 = strlen(s1);
+	l2 = strlen(s2);
+	out = ft_ti_alloc(l1 + l2 + 1);
+	if (!out)
+		goto err;
+	if (snprintf(out, l1 + l2, "%s%s", s1, s2) == -1)
+		goto ferr;
+	return out;
+	ferr:
+	ft_ti_flist_free(out);
+	err:
+	return NULL;
 }
 
 char	*ft_ti_strdup(const char *s)
