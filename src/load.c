@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:34:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/18 13:43:08 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/10/01 23:20:36 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,11 @@ static inline int32_t	_open(const char *term)
 		return -1;
 	dir = getenv("TERMINFO");
 	if (dir)
+	{
 		rv = snprintf(path, STRBUF, "%s/%s", dir, term);
+		if (rv != -1 && access(path, F_OK) != 0)
+			rv = snprintf(path, STRBUF, "%s/%c/%s", dir, *term, term);
+	}
 	else if (access(ft_ti_strjoin(getenv("HOME"), "/.terminfo"), F_OK) == 0)
 		rv = snprintf(path, STRBUF, "%s/.terminfo/%c/%s", getenv("HOME"), *term, term);
 	else
