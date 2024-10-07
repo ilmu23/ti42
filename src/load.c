@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 23:34:20 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/10/01 23:20:36 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:01:58 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 #define __free(x)			(ft_ti_flist_free(x), x = NULL)
 #define __freeentry(x)		(__free(x.term_names), __free(x.bools), \
-		__free(x.numbers), __free(x.offsets), __free(x.str_table))
+							__free(x.numbers), __free(x.offsets), __free(x.str_table))
 
 #define createpath			(snprintf(path, STRBUF, "%s/%c/%s", dir, *term, term))
 
@@ -102,7 +102,7 @@ static inline const entry_t	*_getentry(const int32_t fd)
 	const uint16_t	*ptr;
 
 	if (fd == -1)
-		goto err;
+		return NULL;
 	for (ptr = &entry.header.numbits; ptr <= &entry.header.nfree; ptr++)
 		if (read(fd, (void *)ptr, sizeof(*ptr)) == -1)
 			goto err;

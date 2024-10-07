@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 19:56:48 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 22:14:11 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:02:53 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ const char	*ft_ti_tgoto(const char *seq, const int32_t row, const int32_t col)
 	uint8_t		flags;
 	intptr_t	params[_STACKSIZE];
 	const char	*n;
-	char		out[_BUFSIZE];
+	static char	out[_BUFSIZE];
 
 	for (_INIT_I, flags = 0; seq[_ISEQ] && _IOUT < _BUFSIZE; _ISEQ++)
 	{
@@ -64,5 +64,5 @@ const char	*ft_ti_tgoto(const char *seq, const int32_t row, const int32_t col)
 			out[_IOUT++] = seq[_ISEQ];
 	}
 	out[_IOUT] = '\0';
-	return ft_ti_strdup(out);
+	return out;
 }

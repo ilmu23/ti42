@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 22:09:31 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/17 02:38:20 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:08:14 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ const char		*ft_ti_tparm(const char *seq, ...)
 	uintptr_t	stack[_STACKSIZE];
 	uintptr_t	dvars[_VARCOUNT];
 	const char	*tmp;
-	char		out[_BUFSIZE];
+	static char	out[_BUFSIZE];
 
 	if (!_paramcount(seq, &prmc))
 		return NULL;
@@ -271,7 +271,7 @@ const char		*ft_ti_tparm(const char *seq, ...)
 			out[_IOUT++] = seq[_ISEQ];
 	}
 	out[_IOUT] = '\0';
-	return ft_ti_strdup(out);
+	return out;
 }
 
 static inline const char	*_expand(const char *seq, const uintptr_t val)
@@ -292,11 +292,7 @@ static inline const char	*_expand(const char *seq, const uintptr_t val)
 			snprintf(out, _BUFSIZE, fmt, (const int32_t)val);
 			break ;
 		case 'o':
-			snprintf(out, _BUFSIZE, fmt, (const uint32_t)val);
-			break ;
 		case 'x':
-			snprintf(out, _BUFSIZE, fmt, (const uint32_t)val);
-			break ;
 		case 'X':
 			snprintf(out, _BUFSIZE, fmt, (const uint32_t)val);
 			break ;
