@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 03:25:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 07:02:16 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:26:17 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ static inline uint8_t	_sleep(const uint64_t ms, __UNUSED ssize_t (*putc)(const i
 	struct timespec	total;
 	struct timespec	remaining;
 
+	errno = 0;
 	total = (struct timespec){.tv_sec = ms / 1000, .tv_nsec = (ms % 1000) * 1000000};
 	while (nanosleep(&total, &remaining) == -1 && errno == EINTR)
 		total = remaining;
