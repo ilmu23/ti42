@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 03:25:39 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/10/18 10:26:17 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/10/31 18:39:07 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #define DELAY_MANDATORY	0x4
 
 #define isvalid(x)		(x != NULL && x != NOT_STR)
-#define strequals(x, y)	(x == y || strcmp(x, y) == 0)
+#define strequals(x, y)	(x == y || (x && y && strcmp(x, y) == 0))
 
 #define setpc			(pc = ft_ti_getstr("pc"), pc = (pc) ? pc : (const char *)&"\0")
 
