@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:37:13 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/09/16 22:12:50 by ivalimak         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:57:19 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
  * 0 if it is absent or cancelled,
  * NOT_BOOL if code was not a valid boolean capability
  */
-int32_t	ft_ti_getflag(const char *code);
+int32_t			ft_ti_getflag(const char *code);
 
 // getnum.c
 /** @brief Returns the value of the capability referred to by code
@@ -47,7 +47,7 @@ int32_t	ft_ti_getflag(const char *code);
  * ABS_NUM if it is absent or cancelled,
  * NOT_NUM if code was not a valid numeric capability
  */
-int32_t	ft_ti_getnum(const char *code);
+int32_t			ft_ti_getnum(const char *code);
 
 // getstr.c
 /** @brief Returns the value of the capability referred to by code
@@ -84,7 +84,7 @@ const char		*ft_ti_tparm(const char *seq, ...);
  * @param s String to output
  * @param affln Number of lines affected / 1 if not applicable
  * @param putc putchar-like function for outputting the characters
- * @retutrns @c <b>ssize_t</b> amount of characters output, -1 if an error occurred
+ * @returns @c <b>ssize_t</b> amount of characters output, -1 if an error occurred
  */
 ssize_t			ft_ti_tputs(const char *s, const size_t affln, ssize_t (*putc)(const int8_t));
 
