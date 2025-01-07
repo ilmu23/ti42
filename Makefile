@@ -6,7 +6,7 @@
 #    By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/13 11:30:59 by ivalimak          #+#    #+#              #
-#    Updated: 2024/09/17 00:58:44 by ivalimak         ###   ########.fr        #
+#    Updated: 2025/01/07 07:41:02 by ivalimak         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,4 +75,9 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all test clean fclean re
+db:
+	@printf "\e[1;34mTI42 >\e[m Creating compilation command database\n"
+	@compiledb make --no-print-directory BUILD=$(BUILD) cflags.extra=$(cflags.extra) | sed -E '/^##.*\.\.\.$$|^[[:space:]]*$$/d'
+	@printf "\e[1;34mTI42 >\e[m \e[1mDone!\e[m\n"
+
+.PHONY: all test clean fclean re db
