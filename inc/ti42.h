@@ -6,7 +6,7 @@
 /*   By: ivalimak <ivalimak@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 19:37:13 by ivalimak          #+#    #+#             */
-/*   Updated: 2024/12/16 21:57:19 by ivalimak         ###   ########.fr       */
+/*   Updated: 2025/01/07 09:37:17 by ivalimak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define TI42_H
 # include <stdint.h>
 # include <stdlib.h>
+# include <sys/types.h>
 
 // return values for nonexisting capabilities
 # define NOT_BOOL -1
