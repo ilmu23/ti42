@@ -10,7 +10,7 @@
 #include "ti42.h"
 
 const char	*ti42_tgoto(const char *seq, const int32_t row, const int32_t col) {
-	if (row == -1 || col == -1)
+	if (row <= 0 || col <= 0)
 		return NULL;
-	return ti42_tparm(seq, row - 1, col - 1);
+	return ti42_tparm2(seq, row - 1, col - 1);
 }

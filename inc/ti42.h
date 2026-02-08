@@ -97,11 +97,21 @@ const char	*ti42_tgoto(const char *seq, const int32_t row, const int32_t col);
 /** @brief Instantiates an escape sequence with the given parameter(s)
  *
  * @param seq Sequence to apply the parameters on
- * @param ... Parameter(s) to apply
+ * @param argN Parameter(s) to apply
  * @returns @c </b>const char *</b> seq with the parameter(s) applied,
  * NULL if an error occurred
  */
-const char	*ti42_tparm(const char *seq, ...);
+const char	*ti42_tparm(const char *seq, const uintptr_t arg1, const uintptr_t arg2, const uintptr_t arg3, const uintptr_t arg4, const uintptr_t arg5, const uintptr_t arg6, const uintptr_t arg7, const uintptr_t arg8, const uintptr_t arg9);
+
+#define ti42_tparm1(seq, a1)									(ti42_tparm(seq, (uintptr_t)a1, 0, 0, 0, 0, 0, 0, 0, 0))
+#define ti42_tparm2(seq, a1, a2)								(ti42_tparm(seq, (uintptr_t)a1, (uintptr_t)a2, 0, 0, 0, 0, 0, 0, 0))
+#define ti42_tparm3(seq, a1, a2, a3)							(ti42_tparm(seq, (uintptr_t)a1, (uintptr_t)a2, (uintptr_t)a3, 0, 0, 0, 0, 0, 0))
+#define ti42_tparm4(seq, a1, a2, a3, a4)						(ti42_tparm(seq, (uintptr_t)a1, (uintptr_t)a2, (uintptr_t)a3, (uintptr_t)a4, 0, 0, 0, 0, 0))
+#define ti42_tparm5(seq, a1, a2, a3, a4, a5)					(ti42_tparm(seq, (uintptr_t)a1, (uintptr_t)a2, (uintptr_t)a3, (uintptr_t)a4, (uintptr_t)a5, 0, 0, 0, 0))
+#define ti42_tparm6(seq, a1, a2, a3, a4, a5, a6)				(ti42_tparm(seq, (uintptr_t)a1, (uintptr_t)a2, (uintptr_t)a3, (uintptr_t)a4, (uintptr_t)a5, (uintptr_t)a6, 0, 0, 0))
+#define ti42_tparm7(seq, a1, a2, a3, a4, a5, a6, a7)			(ti42_tparm(seq, (uintptr_t)a1, (uintptr_t)a2, (uintptr_t)a3, (uintptr_t)a4, (uintptr_t)a5, (uintptr_t)a6, (uintptr_t)a7, 0, 0))
+#define ti42_tparm8(seq, a1, a2, a3, a4, a5, a6, a7, a8)		(ti42_tparm(seq, (uintptr_t)a1, (uintptr_t)a2, (uintptr_t)a3, (uintptr_t)a4, (uintptr_t)a5, (uintptr_t)a6, (uintptr_t)a7, (uintptr_t)a8, 0))
+#define ti42_tparm9(seq, a1, a2, a3, a4, a5, a6, a7, a8, a9)	(ti42_tparm(seq, (uintptr_t)a1, (uintptr_t)a2, (uintptr_t)a3, (uintptr_t)a4, (uintptr_t)a5, (uintptr_t)a6, (uintptr_t)a7, (uintptr_t)a8, (uintptr_t)a9))
 
 /** @brief Outputs the string s, executing any delays found in it
  *

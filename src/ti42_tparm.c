@@ -16,8 +16,8 @@
 
 #define _SVAR_MAX		26
 #define _DVAR_MAX		26
-#define _PARAM_MAX		9
 #define _STACK_SIZE		64
+#define _PARAM_COUNT	9
 
 #define _BUFFER_SIZE	4096
 
@@ -29,60 +29,38 @@
 #define flag_unset(flags, f)	(flags &= ~f)
 #define flag_is_set(flags, f)	(flags & f)
 
-#define stack_pop(stk)		(stk.data[(stk.top != 0) ? stk.top-- : stk.top])
-#define stack_push(stk, x)	(stk.data[(stk.top != _STACK_SIZE - 1) ? ++stk.top : stk.top] = x)
+#define stack_pop(stk)		(stk.data[(stk.size != 0) ? --stk.size : stk.size])
+#define stack_push(stk, x)	(stk.data[(stk.size != _STACK_SIZE - 1) ? stk.size++ : stk.size] = x)
 
 static inline uint8_t	_sprintf(const char **seq, char buf[_BUFFER_SIZE + 1], const uintptr_t val);
 
-const char	*ti_tparm(const char *seq, ...) {
+const char	*ti42_tparm(const char *seq, const uintptr_t arg1, const uintptr_t arg2, const uintptr_t arg3, const uintptr_t arg4, const uintptr_t arg5, const uintptr_t arg6, const uintptr_t arg7, const uintptr_t arg8, const uintptr_t arg9) {
 	unsigned _BitInt(3)	flags;
-	unsigned _BitInt(9)	present_params;
 	static uintptr_t	svars[_SVAR_MAX];
 	static char			seq_buf[_BUFFER_SIZE + 1];
 	uintptr_t			dvars[_DVAR_MAX];
-	uintptr_t			params[_PARAM_MAX];
+	uintptr_t			params[_PARAM_COUNT];
 	struct {
 		uintptr_t		data[_STACK_SIZE];
-		size_t			top;
+		size_t			size;
 	}					stack;
 	uintptr_t			x;
 	uintptr_t			y;
-	uint8_t				param_count;
-	va_list				args;
-	size_t				seqlen;
 	size_t				i;
 	char				buf[_BUFFER_SIZE + 1];
 
 	if (seq == TI42_ABS_STR || seq == TI42_NOT_STR)
 		return NULL;
-	for (present_params = param_count = seqlen = 0; seq[seqlen]; seqlen++) {
-		if (seq[seqlen] == 'p') switch (seq[++seqlen]) {
-			case '1':
-			case '2':
-			case '3':
-			case '4':
-			case '5':
-			case '6':
-			case '7':
-			case '8':
-			case '9':
-				if (!((present_params >> (seq[seqlen] - '1')) & 0x1U)) {
-					present_params |= 0x1U << (seq[seqlen] - '1');
-					if (seq[seqlen] - '0' > param_count)
-						param_count = seq[seqlen] - '0';
-				}
-				break ;
-			default:
-				return NULL;
-		}
-	}
-	va_start(args, seq);
-	for (i = 0; i < _PARAM_MAX; i++) {
-		params[i] == param_count ? va_arg(args, uintptr_t) : (uintptr_t)-1;
-		param_count -= (present_params >> i) & 0x1U;
-	}
-	va_end(args);
-	stack.top = 0;
+	stack.size = 0;
+	params[0] = arg1;
+	params[1] = arg2;
+	params[2] = arg3;
+	params[3] = arg4;
+	params[4] = arg5;
+	params[5] = arg6;
+	params[6] = arg7;
+	params[7] = arg8;
+	params[8] = arg9;
 	memset(seq_buf, 0, sizeof(seq_buf));
 	for (i = flags = 0; *seq && i < _BUFFER_SIZE; seq++) {
 		if (*seq == '%') switch (*(++seq)) {
