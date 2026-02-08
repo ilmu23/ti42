@@ -67,7 +67,7 @@ install: $(STATIC) $(SHARED)
 install-headers:
 	@printf "\e[1;38;5;85mTI42 >\e[m Installing headers\n"
 	@mkdir -p $(INSTALL_PATH)/include/ti42
-	@cp $(STATIC) $(SHARED) $(INSTALL_PATH)/include/ti42/
+	@cp -r $(INCDIR)/* $(INSTALL_PATH)/include/ti42/
 	@printf "\e[1;38;5;85mTI42 >\e[m \e[1mDone!\e[m\n"
 
 $(STATIC): $(OBJDIR) $(OBJS)
