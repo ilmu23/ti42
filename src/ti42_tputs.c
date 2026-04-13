@@ -48,7 +48,11 @@ static inline uint8_t	_is_delay(const char *s);
 static inline int8_t	_sleep(const uint64_t ms, const delay_type type, ssize_t (*putc)(const char));
 
 ssize_t	ti42_tputs(const char *s, const size_t affln, ssize_t (*putc)(const char)) {
+#if __STDC_VERSION__  < 202311L
+	uint8_t				delay;
+#else
 	unsigned _BitInt(3)	delay;
+#endif
 	delay_type			type;
 	uint64_t			delay_ms;
 	ssize_t				bytes_written;

@@ -7,6 +7,10 @@
 //
 // <<ti42_tparm.c>>
 
+#if __STDC_VERSION__  < 202311L
+# include <bsd/string.h>
+#endif
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -35,7 +39,11 @@
 static inline uint8_t	_sprintf(const char **seq, char buf[_BUFFER_SIZE + 1], const uintptr_t val);
 
 const char	*ti42_tparm(const char *seq, const uintptr_t arg1, const uintptr_t arg2, const uintptr_t arg3, const uintptr_t arg4, const uintptr_t arg5, const uintptr_t arg6, const uintptr_t arg7, const uintptr_t arg8, const uintptr_t arg9) {
+#if __STDC_VERSION__  < 202311L
+	uint8_t				flags;
+#else
 	unsigned _BitInt(3)	flags;
+#endif
 	static uintptr_t	svars[_SVAR_MAX];
 	static char			seq_buf[_BUFFER_SIZE + 1];
 	uintptr_t			dvars[_DVAR_MAX];
